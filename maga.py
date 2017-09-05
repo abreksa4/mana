@@ -65,10 +65,10 @@ class Maga(asyncio.DatagramProtocol):
             for node in self.bootstrap_nodes:
                 self.find_node(addr=node)
 
-    def run(self, port=6881, stop_loop = True):
+    def run(self, host, port=6881, stop_loop = True):
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        s.bind(('0.0.0.0', port))
+        s.bind((host, port))
         coro = self.loop.create_datagram_endpoint(
                 lambda: self, sock=s
         )
